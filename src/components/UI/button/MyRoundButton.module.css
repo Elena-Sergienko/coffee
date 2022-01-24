@@ -1,0 +1,21 @@
+.roundBtn {
+    background-color: wheat;
+    border: wheat;
+    border-radius: 50%;
+    font-size: 14px;
+    justify-content: center;
+    cursor: pointer;
+    margin: 40px 0 0 5px;
+    padding: 10px 10px 10px 10px;
+    position: fixed;
+}
+
+.roundBtn:hover{
+    background-color: chocolate;
+    transition-duration: 10ms;
+}
+
+.roundBtn:active{
+    background-color: grey;
+    transition-duration: 5ms;
+}

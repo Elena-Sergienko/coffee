@@ -1,0 +1,22 @@
+.container {
+    text-align: left;
+}
+
+.bag {
+    position: fixed;
+    margin: 7px 5px 7px 5px;
+    font-size: 19px;
+    color: #4a3200;
+}
+
+.yourOrder {
+    border-radius: 25px 5px 25px 5px;
+    padding: 10px 2% 10px 2%;
+    font-size: 16px;
+    color: wheat;
+    background-color: forestgreen;
+    display: inline-flex;
+    justify-content: center;
+    margin: 20px 5px 20px 5px;
+    position: fixed;
+}

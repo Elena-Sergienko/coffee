@@ -1,0 +1,22 @@
+.myBtn{
+    border: #4a3200;
+    border-radius: 25px;
+    color: #4a3200;
+    padding: 5px 15px;
+    font-size: 14px;
+    background-color: wheat;
+    display: inline-flex;
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 5px;
+}
+.myBtn:hover{
+    background-color: forestgreen;
+    transition-duration: 10ms;
+    color: wheat;
+}
+
+.myBtn:active{
+    background-color: grey;
+    transition-duration: 5ms;
+}
