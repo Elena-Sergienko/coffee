@@ -81,9 +81,10 @@ const SignUp = ({getUserData}) => {
             <h2 className="text">Create an account</h2>
             <form onSubmit={submit}>
                 <br/>
-                {/*<input value={firstName} onBlur={getFirstName} type="text" placeholder="First name" />*/}
-                <input value={firstName} onChange={getFirstName} type="text" placeholder="First name"/>
-                <input type="text" value={lastName} onChange={getLastName} placeholder="Last name"/>
+                <input onBlur={getFirstName} type="text" placeholder="First name" />
+                {/*<input value={firstName} onChange={getFirstName} type="text" placeholder="First name"/>*/}
+                {/*<input type="text" value={lastName} onChange={getLastName} placeholder="Last name"/>*/}
+                <input type="text" onBlur={getLastName} placeholder="Last name"/>
                 <br/>
 
                 <span style={{marginRight: 5}}>
@@ -98,9 +99,11 @@ const SignUp = ({getUserData}) => {
                 <span>{country}</span>
 
 
-                <input type="text" value={phone} onChange={getPhone} placeholder="Phone number"/>
+                {/*<input type="text" value={phone} onChange={getPhone} placeholder="Phone number"/>*/}
+                <input type="text" onBlur={getPhone} placeholder="Phone number"/>
                 <br/>
-                <input type="text" value={email} onChange={getEmail} placeholder="E-mail"/>
+                {/*<input type="text" value={email} onChange={getEmail} placeholder="E-mail"/>*/}
+                <input type="text" onBlur={getEmail} placeholder="E-mail"/>
                 <br/>
                 <MyButton>Submit</MyButton>
             </form>

@@ -5,10 +5,6 @@ import Navbar from "./components/UI/navbar/Navbar";
 import AppRouter from "./components/router/AppRouter";
 
 
-// почему-то onBlur не работает в инпутах (только onChange) - компонент Sign up
-// как кнопку - на enter (не только на клик мышки)
-// генерация уникального id - какой пакет?
-
 function App() {
     const [menu, setMenu] = useState(initialMenu);
     // const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")));
@@ -51,7 +47,7 @@ function App() {
             newTotal = beforeTax + newTax
 
             setTotal({...previous, tax: newTax, total: newTotal})
-            console.log('if(newDiscount-->', {...previous, tax: newTax, total: newTotal})
+            // console.log('if(newDiscount-->', {...previous, tax: newTax, total: newTotal})
         }
 
         if (newTips !== 0) {
@@ -81,7 +77,7 @@ function App() {
         localStorage.setItem("order", JSON.stringify([...order, newOrder]));
 
         getTotal(newOrder.price, 0, 0)
-        console.log("новый order-->", [...order, newOrder])
+        // console.log("new order-->", [...order, newOrder])
     }
 
     const getTips = (percent) => {
@@ -91,7 +87,7 @@ function App() {
         setTips(newTips);
         localStorage.setItem("tips", newTips.toString());
         getTotal(0, 0, newTips)
-        console.log("Принес метод getTips-->", newTips)
+        // console.log("getTips-->", newTips)
     }
 
     const getDiscount = (percent) => {
