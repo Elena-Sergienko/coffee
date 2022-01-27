@@ -5,11 +5,11 @@ import OrderList from "./OrderList";
 import Subtotal from "./Subtotal";
 import {Link} from "react-router-dom";
 
-const Order = ({order, discount, subtotal, total, tax, getTips, tips}) => {
+const Order = ({order,discount, subtotal, deleteOrderRow, total, tax, getTips, tips, addToOrder, subtractFromOrder}) => {
 
     return (
         <div>
-            <OrderList order={order}/>
+            <OrderList order={order} addToOrder={addToOrder} subtractFromOrder={subtractFromOrder} deleteOrderRow={deleteOrderRow}/>
             <hr/>
             <Subtotal subtotal={subtotal} tax={tax} tips={tips} discount={discount}/>
             <Tips getTips={getTips} tips={tips} discount={discount}/>
@@ -28,7 +28,8 @@ const Order = ({order, discount, subtotal, total, tax, getTips, tips}) => {
             {/*<div className="top"/> */}
 
             {discount ?
-                <div>Discount was added!</div>
+                <div style={{color: "blue"}}>You got a discount! </div>
+
                 :
                 null
             }

@@ -10,9 +10,10 @@ function App() {
     // const [order, setOrder] = useState(JSON.parse(localStorage.getItem("order")));
     const [order, setOrder] = useState([]);
     // const [total, setTotal] = useState(JSON.parse(localStorage.getItem("total")));
-    const [total, setTotal] = useState({subtotal: 0, tax: 0, total: 0});
+    const [total, setTotal] = useState({})
     const [tips, setTips] = useState(+(localStorage.getItem("tips"))); // 0
     const [discount, setDiscount] = useState(0);
+    const [countInBag, setCountInBag] = useState(0);
     const [auth, setAuth] = useState(false);
     const [userData, setUserData] = useState({user_id: "", firstName: "", lastName: "", phone: "", email: ""});
 
@@ -22,62 +23,73 @@ function App() {
     }, [total])
 
     useEffect(() => {
+        localStorage.setItem('order', JSON.stringify(order))
+
+        let newSubtotal = 0;
+        let countAllItems = 0;
+
+        order.forEach(el => {
+            newSubtotal += el.price * el.count
+            countAllItems += el.count
+        })
+
+        let subtWithDiscountBeforeTax = newSubtotal - discount;
+        let withTips = subtWithDiscountBeforeTax + tips;
+        let newTax = withTips * 10 / 100;
+        let newTotal = withTips + newTax;
+
+        setTotal({
+            subtotal: newSubtotal,
+            WithDiscount: subtWithDiscountBeforeTax,
+            withTips: withTips,
+            tax: newTax,
+            total: newTotal
+        })
+
+        setCountInBag(countAllItems)
+
+    }, [order, tips, discount])
+
+
+    useEffect(() => {
         localStorage.setItem('name', userData.firstName)
     }, [userData]);
 
 
-    const getTotal = (newOrderPrice, newDiscount, newTips) => {
-        let previous = JSON.parse(localStorage.getItem("total"))
-        let newSubtotal = previous.subtotal;
-        let newTax = 0;
-        let newTotal = 0;
-
-        if (newOrderPrice !== 0) {
-            newSubtotal = previous ? previous.subtotal + newOrderPrice : total.subtotal + newOrderPrice;
-
-            newTax = (newSubtotal - discount + tips) * 10 / 100;
-            newTotal = newSubtotal - discount + tips + newTax;
-            setTotal({...previous, subtotal: newSubtotal, tax: newTax, total: newTotal})
-        }
-
-        if (newDiscount !== 0) {
-            console.log("")
-            const beforeTax = previous.subtotal - newDiscount + tips;
-            newTax = beforeTax * 10 / 100
-            newTotal = beforeTax + newTax
-
-            setTotal({...previous, tax: newTax, total: newTotal})
-            // console.log('if(newDiscount-->', {...previous, tax: newTax, total: newTotal})
-        }
-
-        if (newTips !== 0) {
-            const beforeTax = previous.subtotal - discount + newTips
-            newTax = beforeTax * 10 / 100
-            newTotal = beforeTax + newTax
-
-            setTotal({...previous, tax: newTax, total: newTotal})
-            console.log('if(newTips-->', {...previous, tax: newTax, total: newTotal})
-
-        }
-    }
-
     const addToOrder = (idItem) => {
-        let newOrder = {};
+        let previousOrder = [...order]
+        let newCandidateToOrder = {};
 
         for (let i = 0; i < menu.length; i++) {
             for (let j = 0; j < menu[i].categories.length; j++) {
                 for (let k = 0; k < menu[i].categories[j].items.length; k++) {
                     if (menu[i].categories[j].items[k].id === idItem) {
-                        newOrder = menu[i].categories[j].items[k];
+                        newCandidateToOrder = menu[i].categories[j].items[k];
                     }
                 }
             }
         }
-        setOrder([...order, newOrder]);
-        localStorage.setItem("order", JSON.stringify([...order, newOrder]));
 
-        getTotal(newOrder.price, 0, 0)
-        // console.log("new order-->", [...order, newOrder])
+        let newOrder = [];
+        let isExistsInOrder = previousOrder.some(el => el.id === idItem);
+        if (isExistsInOrder) {
+            newOrder = previousOrder.map(el => el.id === newCandidateToOrder.id ? {...el, count: el.count + 1} : el);
+        } else {
+            newOrder = [...previousOrder, newCandidateToOrder];
+        }
+        setOrder(newOrder);
+        localStorage.setItem("order", JSON.stringify(newOrder));
+    }
+
+    const subtractFromOrder = (idItem) => {
+        let changedOrder = order.map(el => idItem === el.id ? {...el, count: el.count - 1} : el)
+        let newOrder = changedOrder.filter(el => el.count > 0)
+        setOrder(newOrder);
+    }
+
+    const deleteOrderRow = (idItem) => {
+        let newOrder = order.filter(el => el.id !== idItem)
+        setOrder(newOrder);
     }
 
     const getTips = (percent) => {
@@ -86,8 +98,6 @@ function App() {
 
         setTips(newTips);
         localStorage.setItem("tips", newTips.toString());
-        getTotal(0, 0, newTips)
-        // console.log("getTips-->", newTips)
     }
 
     const getDiscount = (percent) => {
@@ -95,7 +105,6 @@ function App() {
 
         setDiscount(newDiscount);
         localStorage.setItem("discount", newDiscount.toString());
-        getTotal(0, newDiscount, 0)
     }
 
     const reset = () => {
@@ -124,10 +133,12 @@ function App() {
     return (
         <div className="App">
             <Navbar auth={auth}/>
-            <AppRouter menu={menu} addToOrder={addToOrder} discount={discount} getDiscount={getDiscount} order={order}
+            <AppRouter menu={menu} addToOrder={addToOrder} subtractFromOrder={subtractFromOrder} discount={discount}
+                       getDiscount={getDiscount} order={order}
                        subtotal={total.subtotal} total={total.total}
                        tax={total.tax} reset={reset} getTips={getTips} tips={tips} auth={auth} login={login}
-                       firstName={userData.firstName} getUserData={getUserData}/>
+                       firstName={userData.firstName} getUserData={getUserData} countInBag={countInBag}
+                       deleteOrderRow={deleteOrderRow}/>
         </div>
     );
 }
