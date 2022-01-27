@@ -10,11 +10,13 @@
           {
             "id": "hot_01",
             "name": "Americano",
+            "count": 1,
             "price": 5
           },
           {
             "id": "hot_02",
             "name": "Cappuccino",
+            "count": 1,
             "price": 6
           }
         ]
@@ -26,11 +28,13 @@
           {
             "id": "cold_01",
             "name": "Green Tea",
+            "count": 1,
             "price": 4
           },
           {
             "id": "cold_02",
             "name": "Mint Tea",
+            "count": 1,
             "price": 3
           }
         ]
@@ -48,11 +52,13 @@
           {
             "id": "bakery_01",
             "name": "Chocolate Cookie",
+            "count": 1,
             "price": 2
           },
           {
             "id": "bakery_02",
             "name": "Cheese Muffin",
+            "count": 1,
             "price": 3
           }
         ]
@@ -64,11 +70,13 @@
           {
             "id": "snacks_01",
             "name": "Dark Chocolate",
+            "count": 1,
             "price": 2
           },
           {
             "id": "snacks_02",
             "name": "Milk Chocolate",
+            "count": 1,
             "price": 3
           }
         ]

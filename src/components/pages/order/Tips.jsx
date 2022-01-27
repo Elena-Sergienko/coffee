@@ -9,11 +9,10 @@ const Order = ({getTips, tips, discount}) => {
             <MyButton style={{backgroundColor: 'yellowgreen'}} onClick={() => getTips(10)}>10%</MyButton>
             <MyButton style={{background: 'yellowgreen'}} onClick={() => getTips(15)}>15%</MyButton>
             <MyButton style={{background: 'yellowgreen'}} onClick={() => getTips(20)}>20%</MyButton>
-            <input type="number"/>%
+            {/*<input type="number"/>%*/}
             {tips
                 ?
                 <div style={{color: 'red'}}>Tips added. Thank you!
-                    <hr/>
                     <YouCanGetDiscount discount={discount}/>
                 </div>
                 :
