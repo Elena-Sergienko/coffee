@@ -11,11 +11,12 @@ function App() {
     const [order, setOrder] = useState([]);
     // const [total, setTotal] = useState(JSON.parse(localStorage.getItem("total")));
     const [total, setTotal] = useState({})
-    const [tips, setTips] = useState(+(localStorage.getItem("tips"))); // 0
+    // const [tips, setTips] = useState(+(localStorage.getItem("tips"))); // 0
+    const [tips, setTips] = useState(0); // 0
     const [discount, setDiscount] = useState(0);
     const [countInBag, setCountInBag] = useState(0);
     const [auth, setAuth] = useState(false);
-    const [userData, setUserData] = useState({user_id: "", firstName: "", lastName: "", phone: "", email: ""});
+    const [userData, setUserData] = useState({user_id: "", firstName: localStorage.getItem('name'), lastName: "", phone: "", email: ""});
 
 
     useEffect(() => {
@@ -127,6 +128,7 @@ function App() {
 
     const getUserData = (id, first, last, phone, email) => {
         setUserData({user_id: id, firstName: first, lastName: last, phone: phone, email: email})
+    localStorage.setItem('name', first)
     }
 
 
