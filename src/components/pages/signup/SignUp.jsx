@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import MyButton from "../../UI/button/MyButton";
 import LinkToLogin from "../../router/LinkToLogin";
 
@@ -10,6 +10,7 @@ const SignUp = ({getUserData}) => {
     const [phone, setPhoneNumber] = useState('');
     const [email, setEmail] = useState('');
     const [country, setCountry] = useState('+1');
+    const [errors, setErrors] = useState({email: '', firstName: '', lastName: ''});
     const countryOptions = [
         {
             id: 'country_01',
@@ -32,6 +33,23 @@ const SignUp = ({getUserData}) => {
             code: '+44'
         }
     ]
+
+    useEffect(() => {
+        validationEmail();
+    }, [email])
+
+    const validationEmail = () => {
+        let input = email;
+        let newError = "";
+
+        if ( input !== "") {
+            let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+            if (!pattern.test(input)) {
+                newError = "Please enter valid email";
+            }
+        }
+        setErrors({...errors, email: newError});
+    }
 
     const getFirstName = (e) => {
         const newFirstName = e.target.value
@@ -81,7 +99,7 @@ const SignUp = ({getUserData}) => {
             <h2 className="text">Create an account</h2>
             <form onSubmit={submit}>
                 <br/>
-                <input onBlur={getFirstName} type="text" placeholder="First name" />
+                <input onBlur={getFirstName} type="text" placeholder="First name"/>
                 {/*<input value={firstName} onChange={getFirstName} type="text" placeholder="First name"/>*/}
                 {/*<input type="text" value={lastName} onChange={getLastName} placeholder="Last name"/>*/}
                 <input type="text" onBlur={getLastName} placeholder="Last name"/>
@@ -104,6 +122,13 @@ const SignUp = ({getUserData}) => {
                 <br/>
                 {/*<input type="text" value={email} onChange={getEmail} placeholder="E-mail"/>*/}
                 <input type="text" onBlur={getEmail} placeholder="E-mail"/>
+
+                {errors.email.length > 0?
+                    <div style={{color: 'red'}}>{errors.email}</div>
+                    :
+                    null
+                }
+
                 <br/>
                 <MyButton>Submit</MyButton>
             </form>
