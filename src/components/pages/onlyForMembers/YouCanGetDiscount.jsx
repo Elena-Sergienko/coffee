@@ -7,7 +7,7 @@ const YouCanGetDiscount = ({discount}) => {
         <div>
             {discount === 0 ?
                 <span>
-                    <hr/>
+                    {/*<hr/>*/}
                     You can get discount,
                     <br/>
                     <LinkToLogin text={" please log in"}/>
