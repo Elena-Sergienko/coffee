@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import MyButton from "../../UI/button/MyButton";
 import LinkToLogin from "../../router/LinkToLogin";
+import country_options from '../../../static/country_options.json'
 
 const SignUp = ({getUserData}) => {
 
@@ -11,28 +12,7 @@ const SignUp = ({getUserData}) => {
     const [email, setEmail] = useState('');
     const [country, setCountry] = useState('+1');
     const [errors, setErrors] = useState({email: '', firstName: '', lastName: ''});
-    const countryOptions = [
-        {
-            id: 'country_01',
-            name: 'USA',
-            code: '+1'
-        },
-        {
-            id: 'country_02',
-            name: 'Vietnam',
-            code: '+84'
-        },
-        {
-            id: 'country_03',
-            name: 'Poland',
-            code: '+48'
-        },
-        {
-            id: 'country_04',
-            name: 'United Kingdom',
-            code: '+44'
-        }
-    ]
+    const countryOptions = country_options;
 
     useEffect(() => {
         validationEmail();

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "country_01",
+    "name": "USA",
+    "code": "+1"
+  },
+  {
+    "id": "country_02",
+    "name": "Vietnam",
+    "code": "+84"
+  },
+  {
+    "id": "country_03",
+    "name": "Poland",
+    "code": "+48"
+  },
+  {
+    "id": "country_04",
+    "name": "United Kingdom",
+    "code": "+44"
+  }
+]
